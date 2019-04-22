@@ -2,6 +2,7 @@ package com.example.StudentMan.presentation;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -16,6 +17,7 @@ import com.example.StudentMan.data.entity.Admin;
 import com.example.StudentMan.data.entity.Enrollment;
 import com.example.StudentMan.data.entity.Student;
 
+import java.sql.Date;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -40,6 +42,7 @@ public class AdminController {
     @GetMapping("AdminPage")
     public ModelAndView putCourses()
     {
+    	
         mv=new ModelAndView("AdminPage");
         List<Course> courses=new ArrayList<Course>();
         courses=adminService.getCourses();
@@ -61,7 +64,8 @@ public class AdminController {
         System.out.println(courseName);
         int id=adminService.getIDCourse();
         Course c=new Course(id,courseName,date,a.get());
-
+        
+		
         adminService.addCourse(c);
         return "redirect:AdminPage";
     }

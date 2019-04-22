@@ -5,9 +5,15 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-import javax.persistence.*;
-
-import com.example.StudentMan.data.entity.Admin;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
 @Entity
 @Table(name = "courses")
@@ -22,7 +28,7 @@ public class Course {
 
 	@Column(name = "date_exam", columnDefinition = "DATE")
 	private LocalDate dateExam;
-
+	
 	@ManyToOne(targetEntity = Admin.class)
 	@JoinColumn(name = "admin_id")
 	private Admin admin;
@@ -31,6 +37,7 @@ public class Course {
 	private List<Student> students;
 
 	public Course(int courseId, String courseName, LocalDate dateExam, Admin admin2) {
+		System.err.println(courseId);
 		this.courseId = courseId;
 		this.courseName = courseName;
 		this.dateExam = dateExam;
@@ -39,6 +46,10 @@ public class Course {
 	}
 
 	public Course(String courseName, LocalDate dateExam, Admin admin) {
+		this.courseName = courseName;
+		this.dateExam = dateExam;
+		this.admin = admin;
+		this.students = new ArrayList<Student>();
 	}
 
 	public Course() {
@@ -108,4 +119,3 @@ public class Course {
 	}
 
 }
-
